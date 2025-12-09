@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MindEase | Journal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav>
+    <h2>🌿 MindEase</h2>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="relax.html">Relax</a></li>
+      <li><a href="journal.html" class="active">Journal</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <section>
+    <h1>Daily Journal 📝</h1>
+    <textarea id="journal" placeholder="Write your thoughts..."></textarea>
+    <button onclick="saveJournal()">Save Entry</button>
+    <p id="save-msg"></p>
+
+    <!-- REQUIRED: This is where entries will show -->
+    <h2>Your Previous Entries</h2>
+    <div id="journal-entries" class="entries-container"></div>
+  </section>
+
+  <footer>
+    <p>💚 Your thoughts matter. Reflect and grow.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

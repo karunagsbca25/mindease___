@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MindEase+ Login</title>
+
+  <style>
+    /* -----------------------------
+       ANIMATED BACKGROUND
+    --------------------------------*/
+    body {
+      margin: 0;
+      font-family: "Poppins", Arial, sans-serif;
+      background: linear-gradient(140deg, #a8e6cf, #56ab2f, #a8e063);
+      background-size: 300% 300%;
+      animation: bgMove 10s ease infinite;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+    }
+
+    @keyframes bgMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* -----------------------------
+       LOGIN + SIGNUP BOX
+    --------------------------------*/
+    .container {
+      width: 360px;
+      background: rgba(255, 255, 255, 0.18);
+      padding: 40px 35px;
+      border-radius: 20px;
+      backdrop-filter: blur(15px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      animation: fadeIn 1s ease;
+      text-align: center;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 28px;
+      color: #ffffff;
+      letter-spacing: 1px;
+    }
+
+    /* -----------------------------
+       INPUT STYLE
+    --------------------------------*/
+    input {
+      width: 100%;
+      padding: 14px;
+      margin: 12px 0;
+      border: none;
+      border-radius: 12px;
+      outline: none;
+      background: rgba(255,255,255,0.95);
+      font-size: 15px;
+      box-sizing: border-box;
+    }
+
+    /* -----------------------------
+       BUTTON STYLE
+    --------------------------------*/
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 12px;
+      background: #2e7d32;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #1b5e20;
+      transform: scale(1.03);
+    }
+
+    p.switch {
+      text-align: center;
+      cursor: pointer;
+      margin-top: 15px;
+      color: #e8f5e9;
+      text-decoration: underline;
+    }
+
+    p.switch:hover {
+      color: #ffffff;
+    }
+
+    #login-msg, #signup-msg {
+      text-align: center;
+      margin-top: 12px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ---------------------------
+        LOGIN BOX
+  -------------------------------->
+  <div class="container" id="login-box">
+    <h2>WELCOME TO MINDEASE+ 🌿</h2>
+
+    <input type="email" id="login-email" placeholder="Email">
+    <input type="password" id="login-password" placeholder="Password">
+
+    <button onclick="login()">Login</button>
+
+    <p class="switch" onclick="showSignup()">Don't have an account? Sign up</p>
+    <p id="login-msg"></p>
+  </div>
+
+
+  <!-- ---------------------------
+        SIGNUP BOX
+  -------------------------------->
+  <div class="container" id="signup-box" style="display:none;">
+    <h2>Create Account 🌱</h2>
+
+    <input type="email" id="signup-email" placeholder="Email">
+    <input type="password" id="signup-password" placeholder="Password">
+
+    <button onclick="signup()">Create Account</button>
+
+    <p class="switch" onclick="showLogin()">Already have an account? Login</p>
+    <p id="signup-msg"></p>
+  </div>
+
+
+  <!-- ---------------------------
+        JAVASCRIPT LOGIC
+  -------------------------------->
+  <script>
+    function showSignup() {
+      document.getElementById("login-box").style.display = "none";
+      document.getElementById("signup-box").style.display = "block";
+    }
+
+    function showLogin() {
+      document.getElementById("signup-box").style.display = "none";
+      document.getElementById("login-box").style.display = "block";
+    }
+
+
+    // SIGNUP FUNCTION
+    function signup() {
+      const email = document.getElementById("signup-email").value;
+      const pass = document.getElementById("signup-password").value;
+
+      if (!email || !pass) {
+        document.getElementById("signup-msg").innerText = "Please fill all fields";
+        return;
+      }
+
+      const user = { email, pass };
+      localStorage.setItem("mindeaseUser", JSON.stringify(user));
+
+      document.getElementById("signup-msg").innerText = "Account created ✔";
+
+      setTimeout(showLogin, 1200);
+    }
+
+
+    // LOGIN FUNCTION
+    function login() {
+      const email = document.getElementById("login-email").value;
+      const pass = document.getElementById("login-password").value;
+
+      const savedUser = JSON.parse(localStorage.getItem("mindeaseUser"));
+
+      if (!savedUser) {
+        document.getElementById("login-msg").innerText = "No account found!";
+        return;
+      }
+
+      if (email === savedUser.email && pass === savedUser.pass) {
+        document.getElementById("login-msg").innerText = "Login successful ✔";
+
+        setTimeout(() => {
+          window.location.href = "index.html";  
+        }, 800);
+
+      } else {
+        document.getElementById("login-msg").innerText = "Wrong email or password!";
+      }
+    }
+  </script>
+
+</body>
+</html>
